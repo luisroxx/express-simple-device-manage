@@ -1,30 +1,79 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.putDevice = exports.deleteDevice = exports.postDevice = exports.findOne = exports.getDevices = void 0;
-const DeviceNotFoundException_1 = require("../exception/DeviceNotFoundException");
-const devices = [];
-const getDevices = () => {
-    return devices;
+exports.DeviceService = void 0;
+const exception_1 = require("../exception");
+const device_1 = require("../repository/device");
+exports.DeviceService = {
+    getDevices: () => {
+        return device_1.DeviceRepository.list();
+    },
+    findOne: (id) => {
+        const device = device_1.DeviceRepository.findOne(id);
+        if (!device) {
+            throw new exception_1.DeviceNotFoundException(id);
+        }
+        return device;
+    },
+    postDevice: (createDevice) => {
+        const device = device_1.DeviceRepository.findOneByIpFactoryIdAndIpAddress(createDevice.factoryId, createDevice.ip);
+        if (device) {
+            throw new exception_1.DeviceIPAlreadyInThisFactoryException(createDevice.factoryId, createDevice.ip);
+        }
+        const entity = {
+            name: createDevice.name,
+            ip: createDevice.ip,
+            factory: {
+                id: createDevice.factoryId,
+            },
+            manufacturerType: {
+                id: createDevice.manufacturerId,
+            },
+            deviceType: {
+                id: createDevice.deviceTypeId,
+            },
+            isOnline: createDevice.isOnline,
+            isDeleted: false,
+            attributes: createDevice.attributes.map((attrib) => ({
+                deviceAttributeId: attrib.deviceAttributesEntityId,
+                isDeleted: false,
+                value: attrib.value,
+            })),
+        };
+        return device_1.DeviceRepository.saveOrUpdate(entity);
+    },
+    deleteDevice: (id) => {
+        const deleted = device_1.DeviceRepository.delete(id);
+        if (!deleted) {
+            throw new exception_1.DeviceNotFoundException(id);
+        }
+    },
+    putDevice: (id, updateDevice) => {
+        const device = device_1.DeviceRepository.findOneByIpFactoryIdAndIpAddress(updateDevice.factoryId, updateDevice.ip);
+        if (device && device.id != id) {
+            throw new exception_1.DeviceIPAlreadyInThisFactoryException(updateDevice.factoryId, updateDevice.ip);
+        }
+        const entity = {
+            id: id,
+            name: updateDevice.name,
+            ip: updateDevice.ip,
+            factory: {
+                id: updateDevice.factoryId,
+            },
+            manufacturerType: {
+                id: updateDevice.manufacturerId,
+            },
+            deviceType: {
+                id: updateDevice.deviceTypeId,
+            },
+            isOnline: updateDevice.isOnline,
+            isDeleted: false,
+            attributes: updateDevice.attributes.map((attrib) => ({
+                deviceAttributeId: attrib.deviceAttributesEntityId,
+                isDeleted: false,
+                value: attrib.value,
+            })),
+        };
+        return device_1.DeviceRepository.saveOrUpdate(entity);
+    },
 };
-exports.getDevices = getDevices;
-const findOne = (id) => {
-    const device = devices.find((device) => device.id === id);
-    if (!device) {
-        throw new DeviceNotFoundException_1.DeviceNotFoundException(id);
-    }
-    return device;
-};
-exports.findOne = findOne;
-const postDevice = () => { };
-exports.postDevice = postDevice;
-const deleteDevice = (id) => {
-    const deviceIdx = devices.findIndex((device) => device.id === id);
-    if (deviceIdx == -1) {
-        throw new DeviceNotFoundException_1.DeviceNotFoundException(id);
-    }
-    devices.splice(deviceIdx, 1);
-};
-exports.deleteDevice = deleteDevice;
-const putDevice = () => { };
-exports.putDevice = putDevice;
 //# sourceMappingURL=device.js.map

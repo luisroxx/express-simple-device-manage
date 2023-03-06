@@ -21,6 +21,7 @@ function validatorMiddleware(validators) {
         const errors = results.reduce((acc, val) => acc.concat(val), []);
         if (errors.length) {
             const errorMessages = errors.map((val) => val.constraints);
+            console.error(errorMessages);
             res.status(status_codes_1.StatusCodes.BAD_REQUEST).send(errorMessages);
         }
         else {

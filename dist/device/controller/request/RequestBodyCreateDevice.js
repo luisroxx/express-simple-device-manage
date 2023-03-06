@@ -12,6 +12,16 @@ const class_validator_1 = require("class-validator");
 class RequestBodyCreateDevice {
 }
 __decorate([
+    (0, class_validator_1.IsNotEmpty)()
+], RequestBodyCreateDevice.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsIP)("4")
+], RequestBodyCreateDevice.prototype, "ip", void 0);
+__decorate([
+    (0, class_transformer_1.Transform)(({ value }) => Number(value), { toClassOnly: true }),
+    (0, class_validator_1.IsInt)()
+], RequestBodyCreateDevice.prototype, "factoryId", void 0);
+__decorate([
     (0, class_transformer_1.Transform)(({ value }) => Number(value), { toClassOnly: true }),
     (0, class_validator_1.IsInt)()
 ], RequestBodyCreateDevice.prototype, "manufacturerId", void 0);
@@ -19,8 +29,22 @@ __decorate([
     (0, class_transformer_1.Transform)(({ value }) => Number(value), { toClassOnly: true }),
     (0, class_validator_1.IsInt)()
 ], RequestBodyCreateDevice.prototype, "deviceTypeId", void 0);
+__decorate([
+    (0, class_transformer_1.Transform)(({ value }) => Boolean(value), { toClassOnly: true }),
+    (0, class_validator_1.IsBoolean)()
+], RequestBodyCreateDevice.prototype, "isOnline", void 0);
+__decorate([
+    (0, class_validator_1.ValidateNested)({ each: true })
+], RequestBodyCreateDevice.prototype, "attributes", void 0);
 exports.RequestBodyCreateDevice = RequestBodyCreateDevice;
 class RequestBodyAttributes {
 }
+__decorate([
+    (0, class_transformer_1.Transform)(({ value }) => Number(value), { toClassOnly: true }),
+    (0, class_validator_1.IsInt)()
+], RequestBodyAttributes.prototype, "deviceAttributesEntityId", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)()
+], RequestBodyAttributes.prototype, "value", void 0);
 exports.RequestBodyAttributes = RequestBodyAttributes;
 //# sourceMappingURL=RequestBodyCreateDevice.js.map

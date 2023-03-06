@@ -12,6 +12,7 @@ function logMiddleware(request, _, next) {
         url: request.url,
         headers: convertToKeyValuePair(request.rawHeaders),
     };
+    console.log(logObject);
     next();
 }
 exports.logMiddleware = logMiddleware;

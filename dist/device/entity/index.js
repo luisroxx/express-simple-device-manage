@@ -15,7 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./DeviceAttributesEntity"), exports);
+__exportStar(require("./DeviceAttributeValueEntity"), exports);
 __exportStar(require("./DeviceEntity"), exports);
 __exportStar(require("./DeviceTypeEntity"), exports);
 __exportStar(require("./FactoryEntity"), exports);
+__exportStar(require("./ManufacturerType"), exports);
 //# sourceMappingURL=index.js.map

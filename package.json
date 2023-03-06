@@ -5,7 +5,8 @@
   "scripts": {
     "postinstall": "tsc",
     "prestart": "tsc",
-    "start": "node ./dist/index.js",
+    "start": "cp ./swagger.json ./dist/swaggerjson && node ./dist/index.js",
+    "start-win": "COPY .\\swagger.json .\\dist & node ./dist/index.js",
     "test": "mocha --require ts-node/register test/**/*.test.ts"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "express": "4.17.1",
     "http-status-codes": "^2.2.0",
     "reflect-metadata": "^0.1.13",
-    "request": "2.88.2"
+    "request": "2.88.2",
+    "swagger-ui-express": "^4.6.2"
   }
 }
