@@ -28,10 +28,7 @@ function initializeBaseData() {
     device_1.factories.set(2, (0, seed_1.factoryWilmington)());
 }
 function initializeSwagger(app) {
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.NODE_ENV === "test");
     if (process.env.NODE_ENV !== "test") {
-        console.log("entrou");
         const swaggerUi = require("swagger-ui-express");
         const swaggerDocument = require("./swagger.json");
         app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
