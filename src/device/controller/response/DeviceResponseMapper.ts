@@ -18,6 +18,13 @@ import {
 
 export class DeviceMapper {
   static toResponse(device: DeviceEntity): DeviceResponse {
+    const values = device.attributes.map((attribValue) => ({
+      attributesValue: attribValue,
+      attribute: device.deviceType.attributes.find(
+        (deviceAttrib) => deviceAttrib.id == attribValue.deviceAttributeId
+      ),
+    }));
+
     return {
       id: device.id,
       name: device.name,
@@ -28,7 +35,12 @@ export class DeviceMapper {
       ),
       deviceType: DeviceTypeMapper.toResponse(device.deviceType),
       isOnline: device.isOnline,
-      attributes: device.attributes.map(DeviceAttributesValueMapper.toResponse),
+      attributes: values.map((attribs) =>
+        DeviceAttributesValueMapper.toResponse({
+          attribute: attribs.attribute,
+          attributesValue: attribs.attributesValue,
+        })
+      ),
     } as DeviceResponse;
   }
 }
@@ -45,12 +57,14 @@ export class DeviceAttributesMapper {
 }
 
 export class DeviceAttributesValueMapper {
-  static toResponse(
-    attributesValue: DeviceAttributeValueEntity
-  ): DeviceAttributeValueResponse {
+  static toResponse(a: {
+    attributesValue: DeviceAttributeValueEntity;
+    attribute: DeviceAttributesEntity;
+  }): DeviceAttributeValueResponse {
     return {
-      deviceAttributeId: attributesValue.deviceAttributeId,
-      value: attributesValue.value,
+      deviceAttributeId: a.attributesValue.deviceAttributeId,
+      value: a.attributesValue.value,
+      name: a.attribute.name,
     };
   }
 }
@@ -60,7 +74,6 @@ export class DeviceTypeMapper {
     return {
       id: deviceType.id,
       name: deviceType.name,
-      attributes: deviceType.attributes.map(DeviceAttributesMapper.toResponse),
     };
   }
 }

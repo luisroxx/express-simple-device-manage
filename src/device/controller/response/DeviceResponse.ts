@@ -17,7 +17,6 @@ export interface DeviceAttributesResponse {
 export interface DeviceTypeResponse {
   id: number;
   name: string;
-  attributes: DeviceAttributesResponse[];
 }
 
 export interface FactoryResponse {
@@ -32,5 +31,6 @@ export interface ManufacturerTypeResponse {
 
 export class DeviceAttributeValueResponse {
   deviceAttributeId: number;
+  name: string;
   value: string;
 }

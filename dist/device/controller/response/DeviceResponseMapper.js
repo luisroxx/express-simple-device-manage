@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ManufacturerTypeMapper = exports.FactoryMapper = exports.DeviceTypeMapper = exports.DeviceAttributesValueMapper = exports.DeviceAttributesMapper = exports.DeviceMapper = void 0;
 class DeviceMapper {
     static toResponse(device) {
+        const values = device.attributes.map((attribValue) => ({
+            attributesValue: attribValue,
+            attribute: device.deviceType.attributes.find((deviceAttrib) => deviceAttrib.id == attribValue.deviceAttributeId),
+        }));
         return {
             id: device.id,
             name: device.name,
@@ -11,7 +15,10 @@ class DeviceMapper {
             manufacturerType: ManufacturerTypeMapper.toResponse(device.manufacturerType),
             deviceType: DeviceTypeMapper.toResponse(device.deviceType),
             isOnline: device.isOnline,
-            attributes: device.attributes.map(DeviceAttributesValueMapper.toResponse),
+            attributes: values.map((attribs) => DeviceAttributesValueMapper.toResponse({
+                attribute: attribs.attribute,
+                attributesValue: attribs.attributesValue,
+            })),
         };
     }
 }
@@ -26,10 +33,11 @@ class DeviceAttributesMapper {
 }
 exports.DeviceAttributesMapper = DeviceAttributesMapper;
 class DeviceAttributesValueMapper {
-    static toResponse(attributesValue) {
+    static toResponse(a) {
         return {
-            deviceAttributeId: attributesValue.deviceAttributeId,
-            value: attributesValue.value,
+            deviceAttributeId: a.attributesValue.deviceAttributeId,
+            value: a.attributesValue.value,
+            name: a.attribute.name,
         };
     }
 }
@@ -39,7 +47,6 @@ class DeviceTypeMapper {
         return {
             id: deviceType.id,
             name: deviceType.name,
-            attributes: deviceType.attributes.map(DeviceAttributesMapper.toResponse),
         };
     }
 }

@@ -92,7 +92,7 @@ describe("/devices", () => {
             ip: "192.168.3.10",
             factory: { id: 1, name: "Burlington" },
             manufacturerType: { id: 1, name: "Vida" },
-            deviceType: { id: 1, name: "3D Printer", attributes: [] },
+            deviceType: { id: 1, name: "3D Printer" },
             isOnline: true,
             attributes: [],
           },
@@ -131,10 +131,11 @@ describe("/devices", () => {
             deviceType: {
               id: 2,
               name: "Furnace",
-              attributes: [{ id: 1, name: "Max Temp" }],
             },
             isOnline: true,
-            attributes: [{ deviceAttributeId: 1, value: "3000 C" }],
+            attributes: [
+              { deviceAttributeId: 1, name: "Max Temp", value: "3000 C" },
+            ],
           },
           (err) => done(err)
         );
@@ -212,7 +213,7 @@ describe("/devices", () => {
             ip: "192.168.3.5",
             factory: { id: 1, name: "Burlington" },
             manufacturerType: { id: 1, name: "Vida" },
-            deviceType: { id: 1, name: "3D Printer", attributes: [] },
+            deviceType: { id: 1, name: "3D Printer" },
             isOnline: true,
             attributes: [],
           },
@@ -251,10 +252,11 @@ describe("/devices", () => {
             deviceType: {
               id: 2,
               name: "Furnace",
-              attributes: [{ id: 1, name: "Max Temp" }],
             },
             isOnline: true,
-            attributes: [{ deviceAttributeId: 1, value: "7000 C" }],
+            attributes: [
+              { deviceAttributeId: 1, name: "Max Temp", value: "7000 C" },
+            ],
           },
           (err) => done(err)
         );

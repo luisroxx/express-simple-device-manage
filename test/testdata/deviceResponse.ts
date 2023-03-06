@@ -15,7 +15,6 @@ export const printer1: DeviceResponse = {
   deviceType: {
     id: 1,
     name: "3D Printer",
-    attributes: [],
   },
   isOnline: true,
   attributes: [],
@@ -36,7 +35,6 @@ export const printer2: DeviceResponse = {
   deviceType: {
     id: 1,
     name: "3D Printer",
-    attributes: [],
   },
   isOnline: true,
   attributes: [],
@@ -57,17 +55,12 @@ export const furnace1: DeviceResponse = {
   deviceType: {
     id: 2,
     name: "Furnace",
-    attributes: [
-      {
-        id: 1,
-        name: "Max Temp",
-      },
-    ],
   },
   isOnline: true,
   attributes: [
     {
       deviceAttributeId: 1,
+      name: "Max Temp",
       value: "1000C",
     },
   ],
@@ -88,17 +81,12 @@ export const qualityCheck1: DeviceResponse = {
   deviceType: {
     id: 3,
     name: "Quality Check Device",
-    attributes: [
-      {
-        id: 2,
-        name: "Capacity",
-      },
-    ],
   },
   isOnline: true,
   attributes: [
     {
       deviceAttributeId: 2,
+      name: "Capacity",
       value: "2 trays",
     },
   ],
@@ -119,7 +107,6 @@ export const printer1W: DeviceResponse = {
   deviceType: {
     id: 1,
     name: "3D Printer",
-    attributes: [],
   },
   isOnline: true,
   attributes: [],

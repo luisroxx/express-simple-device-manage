@@ -5,9 +5,8 @@
   "scripts": {
     "postinstall": "tsc",
     "prestart": "tsc",
-    "start": "cp ./swagger.json ./dist/swagger.json && node ./dist/index.js",
-    "start-win": "COPY .\\swagger.json .\\dist & node ./dist/index.js",
-    "test": "mocha --require ts-node/register test/**/*.test.ts"
+    "start": "cp ./swagger.json ./dist/swagger.json || COPY .\\swagger.json .\\dist&& node ./dist/index.js",
+    "test": "NODE_ENV=test || set NODE_ENV=test&& mocha --require ts-node/register test/**/*.test.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
