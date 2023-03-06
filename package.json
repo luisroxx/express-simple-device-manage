@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "tsc",
     "prestart": "tsc",
-    "start": "cp ./swagger.json ./dist/swaggerjson && node ./dist/index.js",
+    "start": "cp ./swagger.json ./dist/swagger.json && node ./dist/index.js",
     "start-win": "COPY .\\swagger.json .\\dist & node ./dist/index.js",
     "test": "mocha --require ts-node/register test/**/*.test.ts"
   },
